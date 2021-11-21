@@ -3,6 +3,7 @@ import * as dotenv from "dotenv";
 import cors from "cors";
 
 const authRoutes = require("./routes/authRoutes");
+const dashboardRoutes = require("./routes/dashboardRoutes");
 
 // Config .env to ./config/config.env
 dotenv.config({ path: __dirname + "/config/config.env" });
@@ -16,6 +17,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use("/api", authRoutes);
+app.use("/api/dashboard-data", dashboardRoutes);
 app.use("/", (req: Request, res: Response) => {
   res.send("Hello to Memories API");
 });
