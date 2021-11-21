@@ -2,6 +2,7 @@ import express, { Request, Response } from "express";
 const jwtDecode = require("jwt-decode");
 
 const User = require("../models/User");
+const dashboardData = require("../models/dashboard");
 
 const { createToken, hashPassword, verifyPassword } = require("../util");
 
@@ -31,9 +32,10 @@ const authController = {
         const decodedToken = jwtDecode(token);
         const expiresAt = decodedToken.exp;
 
+        res.cookie("token", token, { httpOnly: true });
+
         res.json({
           message: "Authentication successful!",
-          token,
           userInfo,
           expiresAt,
         });
@@ -86,9 +88,10 @@ const authController = {
           role,
         };
 
+        res.cookie("token", token, { httpOnly: true });
+
         return res.json({
           message: "User created!",
-          token,
           userInfo,
           expiresAt,
         });
@@ -103,6 +106,7 @@ const authController = {
       });
     }
   },
+  dashboardData: (req: Request, res: Response) => res.json(dashboardData),
 };
 
 module.exports = authController;
