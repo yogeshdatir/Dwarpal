@@ -9,8 +9,8 @@ const auth = (req: Request, res: Response, next: NextFunction) => {
   }
 
   const decodedToken = jwt.verify(token, process.env.JWT_SECRET as string, {
-    audience: "api.orbit",
-    issuer: "api.orbit",
+    audience: "api.dwarpal",
+    issuer: "api.dwarpal",
   });
   if (!decodedToken) {
     return res.status(401).json({

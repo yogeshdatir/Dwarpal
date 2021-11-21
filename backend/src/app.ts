@@ -1,6 +1,7 @@
 import express, { Request, Response } from "express";
 import * as dotenv from "dotenv";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 
 const authRoutes = require("./routes/authRoutes");
 const dashboardRoutes = require("./routes/dashboardRoutes");
@@ -15,9 +16,10 @@ const app: express.Application = express();
 app.use(express.json());
 
 app.use(cors());
+app.use(cookieParser());
 
 app.use("/api", authRoutes);
-app.use("/api/dashboard-data", dashboardRoutes);
+app.use("/api", dashboardRoutes);
 app.use("/", (req: Request, res: Response) => {
   res.send("Hello to Memories API");
 });
